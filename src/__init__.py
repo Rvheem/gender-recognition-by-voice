@@ -4,12 +4,12 @@ import os
 import subprocess
 import librosa
 from scipy.stats import skew, kurtosis, mode as scipy_mode
-from model import MLP  # Your custom model
+from model import MLP 
 
 def load_model(model_path: str, model: torch.nn.Module, device: torch.device):
     checkpoint = torch.load(model_path, map_location=device)
     model.load_state_dict(checkpoint['model_state_dict'])
-    print(f"[DEBUG] ✅ Model loaded from {model_path}")
+    print(f"[DEBUG] ✅ Model loaded from {os.path.basename(model_path)}")
     return model
 
 def convert_to_wav(input_path: str, output_path: str):
@@ -20,7 +20,7 @@ def convert_to_wav(input_path: str, output_path: str):
     subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 def extract_features(audio_path: str):
-    print(f"[DEBUG] 🔍 Extracting features from: {audio_path}")
+    print(f"[DEBUG] 🔍 Extracting features from: {os.path.basename(audio_path)}")
     temp_wav = "temp.wav"
     convert_to_wav(audio_path, temp_wav)
 
@@ -153,6 +153,6 @@ def main(mp3_path: str, model_dir: str):
     print(f"✅ Predicted gender: {gender}")
 
 if __name__ == "__main__":
-    mp3_file_path = r"C:\\Users\\abder\\Desktop\\aivrec\\voice_gender_recognition\\test data\\hello_man.mp3"
+    mp3_file_path = r"C:\\Users\\abder\\Desktop\\aivrec\\voice_gender_recognition\\test data\\hello_woman.mp3"
     model_dir = r"C:\\Users\\abder\\Desktop\\aivrec\\voice_gender_recognition\\output"
     main(mp3_file_path, model_dir)

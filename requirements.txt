@@ -1,7 +1,7 @@
 # requirements_clean.txt
 # This file may be used to create an environment using:
-# $ conda create --name <env> --file requirements_clean.txt
-# platform: linux-64
+# $ conda create --name <env> --file requirements.txt
+# platform: win 64
 
 python=3.10
 seaborn=0.12.2
